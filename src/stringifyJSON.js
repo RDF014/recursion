@@ -24,34 +24,6 @@ var stringifyJSON = function(obj) {
     }
   }
 
-  if(typeof obj === 'object') {
-  // if(obj.constructor === Object){
-    if( Object.keys(obj).length > 1 ){
-      var k = Object.keys(obj)[0];
-      var v = obj[k];
-
-      delete obj[k];
-      // console.log(value)
-
-      return '{' + stringifyJSON(k) + ':' + stringifyJSON(v) + ',' + stringifyJSON(obj)  +  '}';
-    } else if ( Object.keys(obj).length === 1) {
-      var k = Object.keys(obj)[0];
-      var v = obj[k];
-
-      delete obj[k];
-      // console.log(value)
-
-      return '{' + stringifyJSON(k) + ':' + stringifyJSON(v) +  '}';
-
-    } else {
-    // return ... stringigy key : string vale , stringy obj..... }
-      return '{}';
-    }
-
-//{x:5, y:4}
-
-  'infront'.concat('inback')
-
     //var strinfigyObj ={}
     //iterate thru Object
     //put key: value ==> variable to stringifyJSON
@@ -60,9 +32,24 @@ var stringifyJSON = function(obj) {
     //return '{' + stringifyObj + '}';
     // '{' + stringifyJSON(stringifyObj) + '}'
     // "{[object Object]}"
+  if(typeof obj === 'object') {
+  // if(obj.constructor === Object){
+     var keyArray = Object.keys(obj);
+     var lastIndex = keyArray.length - 1;
+     var partialObj = '';
+
+    for(var key in obj){
+      if(key === ('functions' || 'undefined') ){
+        return '{}';
+      }
+      if(keyArray.length === 1 || keyArray[lastIndex] === key){
+        partialObj += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+      } else {
+        partialObj += stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + ',';
+      };
+    }
+    return '{' + partialObj + '}';
   }
-
-
   return '' + obj + '';
 };
 
