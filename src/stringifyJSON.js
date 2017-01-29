@@ -5,4 +5,12 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
+  // console.log(obj);
+  console.log('"' + arguments[0][0] + '"')
 };
+
+stringifyJSON({});                  // '{}'
+stringifyJSON(true);                // 'true'
+stringifyJSON('foo');               // '"foo"'
+stringifyJSON([1, 'false', false]); // '[1,"false",false]'
+stringifyJSON({ x: 5 });            // '{"x":5}'
